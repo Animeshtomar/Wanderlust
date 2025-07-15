@@ -85,21 +85,26 @@
     
     <% if(listing.reviews.length > 0){ %>
     <div class="row">
-      <p><b>All Reviews</b></p>
-      <% for (review of listing.reviews){ %>
-      <div class="card col-5 ms-3 mb-3">
-        <div class="card-body">
-          <h5 class="card-title">@<%= review.author.username %></h5>
-          <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-          <p class="card-text"><%= review.comment %></p>
-          <form action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST" class="mb-3">
-            <button class="btn btmn-sm btn-dark">Delete review</button>
-          </form>
-        </div>
-      </div>
+    <p><b>All Reviews</b></p>
+    <% for (review of listing.reviews){ %>
+    <div class="card col-5 ms-3 mb-3">
+    <div class="card-body">
+      <h5 class="card-title">@<%= review.author.username %></h5>
+      <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+      <p class="card-text"><%= review.comment %></p>
+      
+      <% if(currentUser && review.author._id.equals(currentUser._id)){ %>
+        <form action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST" class="mb-3">
+          <button class="btn btmn-sm btn-dark">Delete review</button>
+        </form>
       <% } %>
+
+    </div>
     </div>
     <% } %>
+    </div>
+    <% } %>
+
 
 </div>
   <div class="col-8 offset-3 mb-3">
